@@ -2,7 +2,6 @@
 import Combinatorics as Comb
 import SimpleGraphs as SG
 using BenchmarkTools
-using .Bipathposets
 
 function comp(a, b)
     if (length(a[1]) < length(b[1])) 
