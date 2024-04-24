@@ -77,9 +77,9 @@ function clique_random(G,faces,path1,path2)##writen by Toshitaka Aoki
             println(i)
         end
     end
-"""
 
     d1 = d1[findall(x -> d1[x][2] != false, 1:l)]
     d2 = d2[findall(x -> d2[x][2] != false, 1:l)]
     return reorderingFSC([d1,length(path1)]), reorderingFSC([d2,length(path2)]) 
 end  
+"""
