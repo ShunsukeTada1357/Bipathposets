@@ -1,9 +1,6 @@
 using Bipathposets
-using AbstractAlgebra
 using Combinatorics
 using SimpleGraphs 
-R =GF(2)
-##########################################
 ##########################################
 #Example(1) from red text book P.82.
 Test = [[[1],1],[[2],2],[[1,2],3],[[4],4],[[5],5],[[4,5],6],[[2,4],7],[[1,5],8],[[2,5],9],[[2,4,5],10],[[1,2,5],11]]
