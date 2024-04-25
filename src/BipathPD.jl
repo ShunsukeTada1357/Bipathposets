@@ -1,5 +1,5 @@
 ##This file is for a function plotintlist(intlist,a,b)
-##That visualize bipath intervals. Input: intervals (represented by dimension vector), a,b: integers for rotating PD.    
+##That visualize bipath intervals.     
 
 using Plots
 using LaTeXStrings
@@ -20,16 +20,6 @@ function BfindendpointDown(I,n,m)
     return n+m+3 -I[2]
 end
 
-
-function intmultiplicity(I, intlist)
-    return length([J for J in intlist if J ==I])
-end
-
-function deletespecific(I,intlist)
-    return [J for J in intlist if J!= I]
-end
-
-
 function persistenceL(I)
     return (I[1][2] + I[2][2]-2)
 end
@@ -47,7 +37,6 @@ function persistenceDown(I)
 end
 
 #(3) intervals to cartesian coordinate
-
 function intervaltocartesiancoordinateL(I,n,m)
     return [BfindendpointL(I,n,m), (persistenceL(I)+BfindendpointL(I,n,m))%(n+m+2)]
 end
@@ -64,11 +53,8 @@ function intervaltocartesiancoordinateDown(I,n,m)
     return [BfindendpointDown(I,n,m), persistenceDown(I)+BfindendpointDown(I,n,m)]
 end
 
-#intervalstocartesiancoordinate(intL,intR,others,4,4)
-function intervalstocartesiancoordinate(intL,intR,up,down,n,m)
+function intervalstocartesiancoordinate(intL,intR,up,down,center,n,m)
     intlist =[]
-    up 
-    down
     for I in intL
         push!(intlist,intervaltocartesiancoordinateL(I,n,m))
     end
@@ -84,17 +70,22 @@ function intervalstocartesiancoordinate(intL,intR,up,down,n,m)
     for I in down
         push!(intlist,intervaltocartesiancoordinateDown(I,n,m))
     end
-    return intlist#, center
+
+    for I in center
+        push!(intlist,[0,n+m+2])
+    end
+
+    return intlist
 end
 
 function intlisttointlistwithmultiplicity(intlist)#[I,I,J,J,J]=> [[I,2],[J,3]]
-    a=copy(intlist)
-    want=[]
-    while iszero(a) != true 
-        push!(want,[a[1],intmultiplicity(a[1], a) ])
-        a=deletespecific(a[1],a)
+    lis=copy(intlist)
+    int_num=[]
+    while iszero(lis) != true 
+        push!(int_num, [lis[1],length([lis[1] for J in lis if J ==lis[1]]) ] ) 
+        lis = [J for J in lis if J!= lis[1]]
     end
-    return want
+    return int_num
 end
 
 function intervalstocartesiancoordinatewithmulti(intlist)
@@ -132,10 +123,9 @@ function colorfunc2(col,max::Int,mult::Int)
         return min(1+(d)*(mult-1),n)
     end
 end
+#The first input is the result of a function "bipathpersistence" in BipathmatrixMthod.jl
 
-####################################################
-##########################################################################################
-#the first input is the result of a function "bipathpersistence" in BipathmatrixMthod.jl
+
 function plotintlist(dict_resultof_bipathpersistence,i_th::Int)#####a=0,b=0
     ###check that we have points to plot. 
     X =dict_resultof_bipathpersistence
@@ -149,8 +139,8 @@ function plotintlist(dict_resultof_bipathpersistence,i_th::Int)#####a=0,b=0
             return false 
         end
     end
-    ###End "check that we have points to plot" 
-    ###plots points 
+###End "check that we have points to plot" 
+###plots points 
     n = X[2]-2
     m = X[3]-2
     RR = n + m +2
@@ -158,14 +148,13 @@ function plotintlist(dict_resultof_bipathpersistence,i_th::Int)#####a=0,b=0
     intL = dict_int[1]
     intR= dict_int[2]
     up =  dict_int[3]
+    center = dict_int[4]
     down= dict_int[5]
-    intlist = intervalstocartesiancoordinate(intL,intR,up,down,n,m)
+    intlist = intervalstocartesiancoordinate(intL,intR,up,down,center,n,m)
     plot()
     x_ax, y_ax, multiplicity = intervalstocartesiancoordinatewithmulti(intlist)
     maxim = maximum(multiplicity)
-    #col = cgrad(:lajolla50,rev =true )
     col =  cgrad(:turbo )
-
     num = length(col)
     d = div(num,maxim)
 
@@ -174,52 +163,50 @@ a=0
 b=0
 vline!([(n+1+a)%RR], linestyle=:dash, color=:black, label="1-hat ="*string(n+1))
 hline!([(n+1+b)%RR], linestyle=:dash, color=:black, label="1-hat ="*string(m+1))
-
-vline!([a%RR], linestyle=:dash, color=:black, label="0-hat ="*string(n+1))
-
 hline!([b%RR], linestyle=:dash, color=:black, label="0-hat ="*string(m+1))
 vline!([RR], linestyle=:dash, color=:black, label="0-hat ="*string(m+n+1))
 
-#hline!([RR+1], linestyle=:dash, color=:black, label="∞ ="*string(RR+1))
-
-#hat = L"\widehat{0}"
-hat = " "
-lll=[hat]
+lll=[]
 for i in 1:n 
     push!(lll,string(i)) 
 end
-hat = L"\widehat{1}"
-
-push!(lll,hat)
+push!(lll,L"\widehat{1}")
 for i in 1:m 
     push!(lll,string(m-i+1)*"'") 
 end
 uu = -1.5*ones(RR)
-annotate!(0:RR-1, uu, text.(lll,16,"Computer Modern"))
-uu = -1.5*ones(RR)
-annotate!(uu,0:RR-1, text.(lll,16,"Computer Modern"))
-#annotate!([-1.5],RR:RR, text.(uuuu,16,"Computer Modern"))
-#plot!(annotation = (RR, -1.5,L"\widehat{0}"))
-
-## End "draw labels on a plane (or torus)"
+xaxe=copy(lll) 
+push!(xaxe,L"\widehat{0}")
+annotate!(1:RR, uu, text.(xaxe,10,"Computer Modern"))
+yaxe= copy(lll)
+insert!(yaxe,1,L"\widehat{0}")
+annotate!(uu,0:RR-1, text.(yaxe,10,"Computer Modern"))
+## End "draw labels on a plane"
 
 ##plot points
 for i in 1:length(x_ax)
-    plot!([(x_ax[i]+a)%RR], [(y_ax[i]+b)%RR], 
-    proj=:identity, ms=6,msw=:0.3,
-    m=:o,
-    c = col[colorfunc2(col,maxim,multiplicity[i])],#c = col[colorfunc(col,multiplicity[i]*d)],
-    lt=:scatter,
-    markerstrokealpha=1, legend = false,markeralpha=1,
-    xlims=(-1,RR+0.5), ylims=(-1,RR+0.5),  
-    fa=1, xticks=[], yticks=[],
-    grid=true, left_margin = 10Plots.mm, 
-    bottom_margin = 10Plots.mm, 
-    aspect_ratio=:equal, label="")
+    if x_ax[i] % RR  !=0 
+       plot!([(x_ax[i]+a)%RR], [(y_ax[i]+b)%RR], 
+       proj=:identity, ms=6,msw=:0.3,
+       m=:o,
+       c = col[colorfunc2(col,maxim,multiplicity[i])],#c = col[colorfunc(col,multiplicity[i]*d)],
+       lt=:scatter,
+       markerstrokealpha=1, legend = false,markeralpha=1)
+    elseif y_ax[i] == RR
+        plot!([0], [RR], 
+        proj=:identity, ms=6,msw=:0.3,
+        m=:o,
+        c = col[colorfunc2(col,maxim,multiplicity[i])],
+        lt=:scatter,
+        markerstrokealpha=1,markeralpha=1)
+    else
+        plot!([RR], [y_ax[i]], 
+        proj=:identity, ms=6,msw=:0.3,
+        m=:o,
+        c = col[colorfunc2(col,maxim,multiplicity[i])],
+        lt=:scatter,markeralpha=1)
+    end
 end
-## End "plots points "
+## End "plots points"
 current()
 end
-
-#savefig("bipathPD3.png") 
-#plotintlist(intlist,a,b)
