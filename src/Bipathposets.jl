@@ -1,4 +1,4 @@
-module bipathposets
+module Bipathposets
 include("IsFSC.jl")
 include("FSCvector.jl")
 include("FSC_Contraction_Persistence.jl")
