@@ -3,9 +3,8 @@ R = AbstractAlgebra.GF(2)
 #############################
 function standardbasis(dimension,field)
     R = field
-    n=dimension 
-    Id = identity_matrix(R, n)
-    listmat= [Id[:,i] for i in 1:n  ]
+    Id = identity_matrix(R, dimension )
+    listmat= [Id[:,i] for i in 1:dimension ]
     return listmat
 end
 
@@ -13,16 +12,16 @@ function _vectorizationofFSC(FSC)
     sortedFSC= sort([s[1] for s in FSC[1]])
     n = length(sortedFSC)
     stdbasis=standardbasis(n,R)
-    d = Dict(zip(sortedFSC,stdbasis))
-    return d
+    dic = Dict(zip(sortedFSC,stdbasis))
+    return dic
 end
 
 function vectorizationofSC(FSC,sumofcomplex) #sumofcomplex=[[1,2],[2,3],[1,3]]
     FS = copy(FSC)
-    d=_vectorizationofFSC(FS)
-    vec=0
+    dic=_vectorizationofFSC(FS)
+    vec = [R(0) for i in 1:length(FSC[1])] 
     for s in sumofcomplex
-        vec = vec +d[s]
+        vec = vec +dic[s]
     end
     return vec
 end
