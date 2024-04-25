@@ -1,4 +1,4 @@
-using bipathposets
+using Bipathposets
 using AbstractAlgebra
 using Combinatorics
 using SimpleGraphs 
