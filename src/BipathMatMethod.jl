@@ -148,10 +148,44 @@ function bipathpersistence(FSCa,FSCb)
           println("................")
        else
        println( " ∃ ",i,"_th homology, ", "#[̂0,̂1] is ", length(center) )
-       println("intervals with ̂0 : ",intL)
-       println("intervals with ̂1 : ",intR)
-       println("intervals up: ",up)
-       println("intervals down: ",down)
+       print("intervals with ̂0: ")        #println("intervals with ̂0 : ",intL) 
+       for int in intL
+        s,t = int[2][2]-1, int[1][2]-1
+          if s !=0 &  t != 0 
+             print("<"*string(s)*","*string(t)*"> ")
+          elseif (t == 0) & (s != 0 )
+             print("<"*string(s)*"', ̂0> ")
+          elseif (t!=0) & (s == 0) 
+            print("<̂0,"*string(t)*"> ")
+          else
+            print("<̂0, ̂0>  ")
+          end
+       end
+       println(" ")
+       print("intervals with ̂1: ")        #println("intervals with ̂1 : ",intR) 
+       for int in intR
+        s,t = int[1][1]-1, int[2][1]-1
+          if (int[1][1] != int[1][2]) &  (int[2][1] != int[2][2]) 
+             print("<"*string(s)*","*string(t)*"'> ")
+          elseif (int[1][1] == int[1][2])  & (int[2][1] != int[2][2]) 
+             print("<̂1,"*string(t)*"'> ")
+          elseif (int[1][1] != int[1][2])  & (int[2][1] == int[2][2]) 
+            print("<̂"*string(s)*",̂1> ")
+          else
+            print("<̂1, ̂1> ")
+          end
+       end
+       println(" ")
+       print("intervals up: ")        #println("intervals up: ",up)
+       for int in up
+        print("<"*string(int[1]-1)*","*string(int[2]-1)*"> ")
+       end
+       println(" ")
+       print("intervals down: ")    #println("intervals down: ",down)
+       for int in down
+        print("<"*string(int[1]-1)*"',"*string(int[2]-1)*"'> ")
+       end
+       println(" ")
        println("................")
        end       
     end
