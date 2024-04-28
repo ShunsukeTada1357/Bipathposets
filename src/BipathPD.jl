@@ -191,20 +191,26 @@ for i in 1:length(x_ax)
        m=:o,
        c = col[colorfunc2(col,maxim,multiplicity[i])],#c = col[colorfunc(col,multiplicity[i]*d)],
        lt=:scatter,
-       markerstrokealpha=1, legend = false,markeralpha=1)
+       markerstrokealpha=1, legend = false,markeralpha=1,left_margin = 10Plots.mm, 
+       bottom_margin = 10Plots.mm, aspect_ratio=:equal, label="",xlims=(-1,RR+0.5), ylims=(-1,RR+0.5),  
+       fa=1, xticks=[], yticks=[])
     elseif y_ax[i] == RR
         plot!([0], [RR], 
         proj=:identity, ms=6,msw=:0.3,
         m=:o,
         c = col[colorfunc2(col,maxim,multiplicity[i])],
         lt=:scatter,
-        markerstrokealpha=1,markeralpha=1)
+        markerstrokealpha=1,markeralpha=1,legend = false,left_margin = 10Plots.mm, 
+        bottom_margin = 10Plots.mm, aspect_ratio=:equal,  label="",xlims=(-1,RR+0.5), ylims=(-1,RR+0.5),  
+        fa=1, xticks=[], yticks=[])
     else
         plot!([RR], [y_ax[i]], 
         proj=:identity, ms=6,msw=:0.3,
         m=:o,
         c = col[colorfunc2(col,maxim,multiplicity[i])],
-        lt=:scatter,markeralpha=1)
+        lt=:scatter,markeralpha=1, legend = false,left_margin = 10Plots.mm, 
+        bottom_margin = 10Plots.mm  , label="",xlims=(-1,RR+0.5), ylims=(-1,RR+0.5),  
+        fa=1, xticks=[], yticks=[],aspect_ratio=:equal)
     end
 end
 ## End "plots points"
