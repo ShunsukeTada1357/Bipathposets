@@ -134,7 +134,7 @@ function plotintlist(dict_resultof_bipathpersistence,i_th::Int)#####a=0,b=0
         println("no ",i_th," homology.")
         return false
     else
-        if iszero(dict_int[1]) &&  iszero(dict_int[2]) && iszero(dict_int[3]) && iszero(dict_int[5]) 
+        if iszero(dict_int[1]) &&  iszero(dict_int[2]) && iszero(dict_int[3]) && iszero(dict_int[4]) && iszero(dict_int[5]) 
             println("all the intervals are bipath posets")
             return false 
         end
