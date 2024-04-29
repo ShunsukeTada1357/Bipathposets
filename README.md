@@ -15,12 +15,11 @@ Our main function is "Bipathposets.bipathpersistence" whose arguments are two fi
 ```
 bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
 ```
-If we want the persistence of i-th homology group in bipath filtration, we compute
+If we want the persistence of i-th homology group in the bipath filtration, we compute
 ```
-bipath[1]
+bipath[i]
 ```
 If we want to visualize the persistence of i-th homology group in the bipath persistnce, we compute
 ```
 Bipathposets.plotintlist(aa,0)
 ```
-
