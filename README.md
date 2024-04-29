@@ -11,6 +11,16 @@ FSCb = [[ [[1],1], [[2],1], [[1,2],3] ],  5]
 ```
 are two filtrations. As for FSCa, simplicies [1] and [2] are born at 1, [1,2] born at 2. No simplicies are born at 3,4, and 5.  
 
-
-
+Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtartions of simplicial complexes sharing same spaces at their ends and its output is a dictionaly.
+```
+bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
+```
+If we want the persistence of i-th homology group in bipath filtration, we compute
+```
+bipath[1]
+```
+If we want to visualize the persistence of i-th homology group in the bipath persistnce, we compute
+```
+Bipathposets.plotintlist(aa,0)
+```
 
