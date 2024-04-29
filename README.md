@@ -28,11 +28,11 @@ The explanation of  the notation <-,->, ̂1, and ̂0 can be seen the above paper
 
 If we want the persistence of i-th homology group in the bipath filtration, we compute
 ```
-bipath[1][i]
+julia> bipath[1][i]
 ```
 If we want to visualize the persistence of i-th homology group in the bipath persistnce, we compute
 ```
-Bipathposets.plotintlist(bipath,i)
+julia> Bipathposets.plotintlist(bipath,i)
 ```
 For exampe, let i be 0, we obtain the following diagram.
 
