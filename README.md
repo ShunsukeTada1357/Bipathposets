@@ -24,5 +24,5 @@ If we want to visualize the persistence of i-th homology group in the bipath per
 ```
 Bipathposets.plotintlist(bipath,i)
 ```
-  <img src="bipath.jpg" alt="bipath persistence diagram" width="150px" align="right">
+  <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
