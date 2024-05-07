@@ -9,9 +9,9 @@ For example,
 julia> FSCa = [[ [[1],1], [[2],1], [[1,2],2] ],  5]
 julia> FSCb = [[ [[1],1], [[2],1], [[1,2],3] ],  4]
 ```
-are two filtrations sharing same spaces at their ends. As for FSCa, simplicies [1] and [2] are born at 1, [1,2] born at 2. No simplicies are born at 3,4, and 5. The second element of the list (FSCa), which is 5, represents the length of the filtration.    
+are two filtrations sharing same spaces at their ends. As for FSCa, simplicies [1] and [2] are born at 1, [1,2] born at 2. No simplicies are born at 3,4, and 5. The second element of the list (FSCa[2]), which is 5, represents the length of the filtration.    
 
-Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtartions of simplicial complexes sharing same spaces at their ends and its output is a list with three elements. The first element in the list is a dictionaly and the second, third are integers meaning the length of each filtration.
+Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtartions of simplicial complexes sharing same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionaly and the second, third are integers meaning the length of each filtration.
 ```
 julia> bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
 (Dict{Any, Any}(0 => Vector{Any}[[[[1, 1], [1, 2]]], [], [], [[1, 5]], []]), 5, 4)
