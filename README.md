@@ -36,6 +36,7 @@ If we want to visualize the persistence of i-th homology group in the bipath fil
 julia> Bipathposets.plotintlist(bipath,i)
 ```
 For example, let i be 0, we obtain the following diagram.
+
 <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
 # Contributors:
