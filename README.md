@@ -1,8 +1,7 @@
 # Bipathposets
  A computation for bipath persistent homology using Julia. The computational method is given in the paper "Bipath Persistence" <a href="https://arxiv.org/abs/2404.02536"> arXiv:2404.02536 </a> by Toshitaka Aoki, Emerson G. Escolar, and Shunsuke Tada.
- 
-# Basic use
 
+# Basic use
 We treat bipath filtration of simplicial complexes, which is seen as a pair of filtration sharing the same spaces at their ends. 
 For example, 
 ```
@@ -35,6 +34,8 @@ If we want to visualize the persistence of i-th homology group in the bipath fil
 julia> Bipathposets.plotintlist(bipath,i)
 ```
 For example, let i be 0, we obtain the following diagram.
+<img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
-  <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
-
+# Contributors:
+・<a href="https://shunsuketada1357.github.io/">Shunsuke Tada</a> (main developer)
+・Toshitaka Aoki
