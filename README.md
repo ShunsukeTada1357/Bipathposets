@@ -38,4 +38,5 @@ For example, let i be 0, we obtain the following diagram.
 
 # Contributors:
 ・<a href="https://shunsuketada1357.github.io/">Shunsuke Tada</a> (main developer)
+
 ・Toshitaka Aoki
