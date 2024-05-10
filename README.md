@@ -8,7 +8,8 @@ For example,
 julia> FSCa = [[ [[1],1], [[2],1], [[1,2],2] ],  5]
 julia> FSCb = [[ [[1],1], [[2],1], [[1,2],3] ],  4]
 ```
-are two filtrations sharing the same spaces at their ends. As for FSCa, the simplicies [1] and [2] are born at 1, the simplex [1,2] is born at 2. No simplicies are born at 3,4, and 5. The second element of the list (FSCa[2]), which is 5, represents the length of the filtration.    
+are two filtrations sharing the same spaces at their ends. As for FSCa, the simplicies [1] and [2] are born at 1, the simplex [1,2] is born at 2. No simplicies are born at 3,4, and 5. The second element of the list (FSCa[2]), which is 5, represents the length of the filtration.
+<img src="bipath_explanation.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
 Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtrations of simplicial complexes sharing the same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionary and the second, and third are integers meaning the length of each filtration.
 ```
