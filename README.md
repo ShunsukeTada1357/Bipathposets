@@ -13,11 +13,14 @@ are two filtrations sharing the same spaces at their ends. As for FSCa, the simp
     <img src="bipath_explanation.png" alt="bipath filtration" width="500px">
 </div>
 Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtrations of simplicial complexes sharing the same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionary and the second, and third are integers meaning the length of each filtration.
+
 ```
 julia> bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
 (Dict{Any, Any}(0 => Vector{Any}[[[[1, 1], [1, 2]]], [], [], [[1, 5]], []]), 5, 4)
 ```
-In calculation, the following will be printed.
+
+The following will be printed.
+
 ```
  ∃ 0_th homology, #[̂0,̂1] is 1
 intervals with ̂0: <1', ̂0>
@@ -25,6 +28,7 @@ intervals with ̂1:
 intervals up:
 intervals down:
 ```
+
 The explanation of  the notation <-,->, ̂1, and ̂0 can be seen in the above paper. 
 
 If we want the persistence of i-th homology group in the bipath filtration, we compute
