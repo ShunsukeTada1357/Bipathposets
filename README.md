@@ -47,3 +47,7 @@ For example, let i be 0, we obtain the following diagram.
 ・<a href="https://shunsuketada1357.github.io/">Shunsuke Tada</a> (main developer)
 
 ・Toshitaka Aoki
+
+・<a href="https://emerson-escolar.github.io/index.html">Emerson G. Escolar</a> 
+
+This project was partially supported by Grant-in-Aid for Transformative Research Areas（A）22H05105.
