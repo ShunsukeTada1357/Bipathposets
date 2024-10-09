@@ -96,7 +96,7 @@ In Pkg mode, we enter the following:
 and we can uninstall the package.
 
 # Troubleshooting
-After uninstalling the package "Bipathposets", Enter
+After uninstalling the package "Bipathposets", enter
 ```
 (@v1.9) pkg> up
 ```
