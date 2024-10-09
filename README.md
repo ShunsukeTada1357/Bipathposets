@@ -104,7 +104,7 @@ and
 ```
 (@v1.9) pkg> build FFMPEG
 ```
-and install the package "Bipathposets" again. The above procedure might help.
+and install the package "Bipathposets" again. This procedure could solve problems.
 
 
 # Contributors:
