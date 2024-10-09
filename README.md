@@ -15,6 +15,7 @@ are two filtrations sharing the same spaces at their ends. As for FSCa, the simp
 Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtrations of simplicial complexes sharing the same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionary and the second, and third are integers meaning the length of each filtration.
 
 ```
+julia> using Bipathposets
 julia> bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
 (Dict{Any, Any}(0 => Vector{Any}[[[[1, 1], [1, 2]]], [], [], [[1, 5]], []]), 5, 4)
 ```
@@ -43,6 +44,8 @@ For example, let i be 0, we obtain the following diagram.
 
 <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
+
+
 # Install
 
 1. Open Julia.
@@ -58,7 +61,7 @@ For example, let i be 0, we obtain the following diagram.
 
 julia>
 ```
-Then, enter the Pkg REPL by pressing ```]```.
+Then, get into the Pkg REPL by pressing ```]```.
 ```
 (@v1.9) pkg>
 ```
@@ -73,13 +76,17 @@ Then, enter the Pkg REPL by pressing ```]```.
 Then, the following screen will be displayed (but the file, folder name, etc. will be different).
 ```
 Status `C:\Users\kyoro\.julia\environments\v1.9\Project.toml`
-⌃ [c3fe647b] AbstractAlgebra v0.41.4
+  [c3fe647b] AbstractAlgebra v0.43.5
+  [b99e7846] BinaryProvider v0.5.10
   [6552261a] Bipathposets v1.0.0-DEV `https://github.com/ShunsukeTada1357/Bipathposets.git#main`
   [861a8166] Combinatorics v1.0.2
+  [c87230d0] FFMPEG v0.4.2
+  [91a5bcdd] Plots v1.40.8
   [55797a34] SimpleGraphs v0.8.6
 Info Packages marked with ⌃ have new versions available and may be upgradable.
 ```
-We can see ```[6552261a] Bipathposets v1.0.0-DEV `https://github.com/ShunsukeTada1357/Bipathposets.git#main` ```. We complete the installation.
+We can see ```[6552261a] Bipathposets v1.0.0-DEV `https://github.com/ShunsukeTada1357/Bipathposets.git#main` ```. 
+We complete the installation.
 
 # Uninstall
 In Pkg mode, we enter the following:
@@ -87,6 +94,18 @@ In Pkg mode, we enter the following:
 (@v1.9) pkg> rm Bipathposets
 ```
 and we can uninstall the package.
+
+# Troubleshooting
+Entering
+```
+(@v1.9) pkg> up
+```
+and 
+```
+(@v1.9) pkg> build FFMPEG
+```
+might help.
+
 
 # Contributors:
 ・Toshitaka Aoki
