@@ -96,7 +96,7 @@ In Pkg mode, we enter the following:
 and we can uninstall the package.
 
 # Troubleshooting
-Entering
+After uninstalling the package "Bipathposets", Enter
 ```
 (@v1.9) pkg> up
 ```
@@ -104,7 +104,7 @@ and
 ```
 (@v1.9) pkg> build FFMPEG
 ```
-might help.
+and install the package "Bipathposets" again. The above procedure might help.
 
 
 # Contributors:
