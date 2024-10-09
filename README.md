@@ -29,8 +29,10 @@ intervals with ̂1:
 intervals up:
 intervals down:
 ```
+"∃ 0_th homology, #[̂0,̂1] is 1" says that there exists one connected component that does not die across the bipath filtration.
+The notation <1', ̂0> is explained in our <a href="https://arxiv.org/abs/2404.02536"> paper </a> (Definition 2.5). 
 
-The explanation of  the notation <-,->, ̂1, and ̂0 can be seen in the above paper. 
+
 
 If we want the persistence of i-th homology group in the bipath filtration, we compute
 ```
