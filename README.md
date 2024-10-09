@@ -2,7 +2,7 @@
  A computation for bipath persistent homology using Julia. The computational method is given in the paper "Bipath Persistence" <a href="https://arxiv.org/abs/2404.02536"> arXiv:2404.02536 </a> by Toshitaka Aoki, Emerson G. Escolar, and Shunsuke Tada.
 
 # Basic use
-We treat bipath filtration of simplicial complexes, which is seen as a pair of filtration sharing the same spaces at their ends. 
+We treat a bipath filtration of simplicial complexes, which is seen as a pair of filtration sharing the same spaces at their ends. 
 For example, 
 ```
 julia> FSCa = [[ [[1],1], [[2],1], [[1,2],2] ],  5]
@@ -42,6 +42,51 @@ julia> Bipathposets.plotintlist(bipath,i)
 For example, let i be 0, we obtain the following diagram.
 
 <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
+
+# Install
+
+1. Open Julia.
+```
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.9.3 (2023-08-24)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia>
+```
+Then, enter the Pkg REPL by pressing ```]```.
+```
+(@v1.9) pkg>
+```
+2. Enter "add https://github.com/ShunsukeTada1357/Bipathposets.git" 
+```
+(@v1.9) pkg> add https://github.com/ShunsukeTada1357/Bipathposets.git
+```
+3. Enter "status" to check the package is installed.
+```
+(@v1.9) pkg> status
+```
+Then, the following screen will be displayed (but the file, folder name, etc. will be different).
+```
+Status `C:\Users\kyoro\.julia\environments\v1.9\Project.toml`
+⌃ [c3fe647b] AbstractAlgebra v0.41.4
+  [6552261a] Bipathposets v1.0.0-DEV `https://github.com/ShunsukeTada1357/Bipathposets.git#main`
+  [861a8166] Combinatorics v1.0.2
+  [55797a34] SimpleGraphs v0.8.6
+Info Packages marked with ⌃ have new versions available and may be upgradable.
+```
+We can see ```[6552261a] Bipathposets v1.0.0-DEV `https://github.com/ShunsukeTada1357/Bipathposets.git#main` ```. We complete the installation.
+
+# Uninstall
+In Pkg mode, we enter the following:
+```
+(@v1.9) pkg> rm Bipathposets
+```
+and we can uninstall the package.
 
 # Contributors:
 ・Toshitaka Aoki
