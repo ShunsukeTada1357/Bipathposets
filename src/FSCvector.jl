@@ -2,7 +2,7 @@ using AbstractAlgebra
 R = AbstractAlgebra.GF(2)
 #############################
 function standardbasis(dimension,field)
-    R = field
+    #R = field
     Id = identity_matrix(R, dimension )
     listmat= [Id[:,i] for i in 1:dimension ]
     return listmat
