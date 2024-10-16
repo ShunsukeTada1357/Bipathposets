@@ -35,77 +35,51 @@ function getBhat_and_basechange(BB) #BB is a boundary matrix from a filtered sim
     return [Bhat,col_change]
 end
 
-function setF_Fdash_E(Bhat)
-    n = size(Bhat)[2]
-    F = []
-    bijFdashtoF = Dict()
-    Fdash =[]
-    E =Vector(1:n)
-    for i in 1:n
-        a = find_lowest_nonzero(Bhat[:,i])
-        if a >= 0
-            push!(F,i)
-            push!(Fdash,a)
-            bijFdashtoF[a]=i
-        end 
-    end
-    setdiff!(E,F)
-    setdiff!(E,Fdash)
-    return F, Fdash, E, bijFdashtoF
-end
-
-function get_intervals_with_basis(FSC,Bhat,info_col_change)
-    FS = copy(FSC)
+function get_intervals_with_basis(FSC, Bhat, info_col_change)
     info = info_col_change
     d = Dict()
-    newbasis = [[s[1]] for s in FS[1] ]
-    basis =  [[s[1]] for s in FS[1]]
+        
+    basis =  [[s[1]] for s in FSC[1]]    #equal to FS[1]
+    imagebasis = []
+    E = Vector(1: length(FSC[1]))
+    for i in 1 : length(FSC[1])
+        j = find_lowest_nonzero(Bhat[:,i])
+        if j >= 0
+            basisI = [basis[k][1] for k in 1:length(FSC[1]) if Bhat[k,i] !=0 ]
+            interval = [j,i-1]
+            d[basisI] = interval
+            push!(imagebasis,[basisI,interval])
+            setdiff!(E,[i,j])
+        end 
+    end
 
+    newbasis = [[s[1]] for s in FSC[1] ] #equal to FSC[1]
     for vec in info
         for i in 1 : length(newbasis[vec[1]])
              push!(newbasis[vec[2]], newbasis[vec[1]][i])
         end
     end
- 
-    FFdashE = setF_Fdash_E(Bhat)
-    Fdash = FFdashE[2]
-    bijFdashtoF = FFdashE[4]
-    E = FFdashE[3]
-    imagebasis = []
-
-    for k in Fdash
-        j = bijFdashtoF[k]
-        basisI = [basis[i][1] for i in 1:length(FS[1]) if Bhat[i,j] !=0 ]
-        int = [k,j-1]
-        d[basisI] = int
-        push!(imagebasis,[basisI,int])
-    end
 
     for i in E
-        d[newbasis[i]] =[i,length(FS[1])]
+        d[newbasis[i]] =[i,length(FSC[1])]
     end
     pairs = sort(d;byvalue=true)
     return  [pairs,imagebasis] #It returns pairs of intervals and bases. 
 end
 
-function get_intervals_with_basis_contract(FSC,pairs)
-    d = Dict()
-    for k in keys(pairs)
-        Int = contractinterval(pairs[k],FSC)
-        if Int[1]<= Int[2]
-            d[k] = contractinterval(pairs[k],FSC)
-        end
-    end    
-    return d
-end
-
 function baseswithintervals(FSC)
     fsc = [[FSC[1][i][1],i] for i in 1: length(FSC[1])]
-    Bhats = getBhat_and_basechange( getB([fsc,"any"]))
-    info_col = Bhats[2]
-    Bhat = Bhats[1]
-    X = get_intervals_with_basis(FSC,Bhat,info_col)
-    pairs = sort( get_intervals_with_basis_contract(FSC,X[1]);byvalue=true)
-    imagebasisleft = [a[1] for a in X[2] if contractinterval(a[2],FSC)[2]==0] ## The left image of the vector space.  
-    return [pairs,imagebasisleft, X[2]]                                       ## It returns pairs (intervals and bases) and basis of image of boundary operation.        
+    Bhat, info_col = getBhat_and_basechange( getB([fsc,"any"]))
+    pairs,imagebasis = get_intervals_with_basis(FSC,Bhat,info_col)
+
+    newpairs = Dict()
+    for k in keys(pairs)
+        Interval = contractinterval(pairs[k],FSC)
+        if Interval[1]<= Interval[2]
+            newpairs[k] = Interval
+        end
+    end   
+    newpairs = sort(newpairs;byvalue=true)
+    imagebasisleft = [a[1] for a in imagebasis if contractinterval(a[2],FSC)[2]==0] ## The left image of the vector space.  
+    return [newpairs,imagebasisleft, imagebasis]                                       ## It returns pairs (intervals and bases) and basis of image of boundary operation.        
 end
