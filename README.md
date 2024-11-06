@@ -8,7 +8,7 @@ For example,
 julia> FSCa = [[ [[1],1], [[2],1], [[1,2],2] ],  5]
 julia> FSCb = [[ [[1],1], [[2],1], [[1,2],3] ],  4]
 ```
-are two filtrations sharing the same spaces at their ends. As for FSCa, the simplicies [1] and [2] are born at 1, the simplex [1,2] is born at 2. No simplicies are born at 3,4, and 5. The second element of the list (FSCa[2]), which is 5, represents the length of the filtration.
+are two filtrations sharing the same spaces at their ends. As for FSCa, the simplicies [1] and [2] are born at 1, the simplex [1,2] is born at 2. No simplicies are born at 3, 4, and 5. The second element of the list (FSCa[2]), which is 5, represents the length of the filtration.
 <div style="text-align:center;">
     <img src="bipath_explanation.png" alt="bipath filtration" width="500px">
 </div>
@@ -29,8 +29,8 @@ intervals with ̂1:
 intervals up:
 intervals down:
 ```
-"∃ 0_th homology, #[̂0,̂1] is 1" says that there exists one connected component that does not die across the bipath filtration.
-The notation <1', ̂0> is explained in our <a href="https://arxiv.org/abs/2404.02536"> paper </a> (Definition 2.5). 
+```∃ 0_th homology, #[̂0,̂1] is 1``` says that there exists one connected component that does not die across the bipath filtration.
+The notation ```<1', ̂0>``` is explained in our <a href="https://arxiv.org/abs/2404.02536"> paper </a> (Definition 2.5). 
 
 
 
