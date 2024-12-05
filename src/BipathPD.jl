@@ -115,9 +115,9 @@ end ## End "plots points"
 current()
 end
 
-#The first input is the result of a function "bipathpersistence" in BipathmatrixMthod.jl
-function plotintlist(dict_resultof_bipathpersistence,i_th::Int) 
-    X =dict_resultof_bipathpersistence
+#The first input is the result of a function "interval_decomposition" in BipathmatrixMthod.jl
+function plotintlist(dict_resultof_interval_decomposition,i_th::Int) 
+    X =dict_resultof_interval_decomposition
     if (i_th in keys(X[1])) == false #check that we have points to plot. 
         println("no ",i_th," homology.")
         return false

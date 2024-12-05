@@ -1,4 +1,4 @@
-#This file is for the function bipathpersistence(FSCa,FSCb), where the input FSCa and FSCb are FSC.
+#This file is for the function interval_decomposition(FSCa,FSCb), where the input FSCa and FSCb are FSC.
 using AbstractAlgebra
 R= AbstractAlgebra.GF(2)
 
@@ -112,43 +112,40 @@ function connect_updown(upintervalswithB,downintervalswithB,matrix)
     return conn
 end
 
-function _bipathpersistence(FSCa,FSCb)
+function interval_decomposition(FSCa,FSCb)
     pairsa = baseswithintervals(FSCa)[1]
     pairsb, imb_left , imb = baseswithintervals(FSCb)
     dima=Set([length(k[1])-1 for k in keys(pairsa)]) #k=[[4, 5], [5, 6], [4, 6]] can be a basis of 1-dimensional homology
     dimb=Set([length(k[1])-1 for k in keys(pairsb)]) 
-    dims = sort(collect(union(dima,dimb)))
+    dims = sort(collect(union(dima,dimb)))           #We want to know the existence of non-zero qth homology modules. dims tells us this information.  
 
-    a = separateintervals(pairsa,FSCa[2])
-    b = separateintervals(pairsb,FSCb[2])
+    sepa = separateintervals(pairsa,FSCa[2])
+    sepb = separateintervals(pairsb,FSCb[2])
 
-    RspaceDown = get_basis_intervals_right(FSCb,b[3],imb,b[2]) 
-    LspaceDown = get_basis_intervals_left(FSCb,b[1],imb_left) 
-    RspaceUp = get_basis_intervals_right(FSCa,a[3])
-    LsapceUp = get_basis_intervals_left(FSCa,a[1])  
+    RspaceDown = get_basis_intervals_right(FSCb,sepb[3],imb,sepb[2]) 
+    LspaceDown = get_basis_intervals_left(FSCb,sepb[1],imb_left) 
+    RspaceUp = get_basis_intervals_right(FSCa,sepa[3])
+    LsapceUp = get_basis_intervals_left(FSCa,sepa[1])  
     mats= get_two_repmat(LsapceUp,RspaceUp,LspaceDown,RspaceDown)
-    intL= connect_updown(a[1],b[1],mats[1])
-    intR = connect_updown(a[3],b[3],mats[2])
-    return intL,intR,a[4],a[2],b[4],dims
-end
+    intLwithB= connect_updown(sepa[1],sepb[1],mats[1])
+    intRwithB = connect_updown(sepa[3],sepb[3],mats[2])
+    #return intLwithB, intRwithB, sepa[4], sepa[2], b[4], dims
 
-function bipathpersistence(FSCa,FSCb)
-    X = _bipathpersistence(FSCa,FSCb)
-    dims =X[6]
     i_thhomology = Dict()
     for i in dims
-       intL = [[int[1][1], int[2][1]] for int in X[1] if length(int[1][2][1])== i+1]
-       intR = [[int[1][1], int[2][1]] for int in X[2] if length(int[1][2][1])== i+1]
-       up= [X[3][1][a] for a in 1:length(X[3][1]) if length(X[3][2][a][1])==i+1 ]
-       center=[X[4][1][x] for x in 1:length(X[4][1]) if length(X[4][2][x][1])==i+1 ]
-       down =[ X[5][1][x] for x in 1:length(X[5][1]) if length(X[5][2][x][1])==i+1]
+       intL = [[int[1][1], int[2][1]] for int in intLwithB if length(int[1][2][1])== i+1]
+       intR = [[int[1][1], int[2][1]] for int in intRwithB if length(int[1][2][1])== i+1]
+       up= [sepa[4][1][a] for a in 1:length(sepa[4][1]) if length(sepa[4][2][a][1])==i+1 ]
+       center=[sepa[2][1][x] for x in 1:length(sepa[2][1]) if length(sepa[2][2][x][1])==i+1 ]
+       down =[ sepb[4][1][x] for x in 1:length(sepb[4][1]) if length(sepb[4][2][x][1])==i+1]
        i_thhomology[i] =  [intL, intR, up,center,down]
        if iszero(i_thhomology[i])
           println( "¬  ∃ ",i,"_th homology" )
           println("................")
        else
        println( " ∃ ",i,"_th homology, ", "#[̂0,̂1] is ", length(center) )
-       print("intervals with ̂0: ")        #println("intervals with ̂0 : ",intL) 
+       print("intervals with ̂0: 
+       ")        #println("intervals with ̂0 : ",intL) 
        for int in intL
         s,t = int[2][2]-1, int[1][2]-1
           if s !=0 &  t != 0 
