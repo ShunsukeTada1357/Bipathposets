@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+"""
+>>>>>>> origin/dev
 #Contributed by Toshitaka Aoki
 import Combinatorics as Comb
 import SimpleGraphs as SG
@@ -82,4 +86,8 @@ function clique_random(G,faces,path1,path2)##writen by Toshitaka Aoki
     d2 = d2[findall(x -> d2[x][2] != false, 1:l)]
     return reorderingFSC([d1,length(path1)]), reorderingFSC([d2,length(path2)]) 
 end  
+<<<<<<< HEAD
 
+=======
+"""
+>>>>>>> origin/dev
