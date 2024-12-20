@@ -8,9 +8,10 @@ function format_intL(interval)
 end
 
 # Function to format intervals for intR
+
 function format_intR(interval)
     s, t = interval[1][1] - 1, interval[2][1] - 1
-    return "<" * (s == 0 ? "̂1" : string(s)) * "," * (t == 0 ? "̂1" : string(t)) * "' > "
+    return "<" * (interval[1][1] == interval[1][2] ? "̂1" : string(s) )* "," * (interval[2][1] == interval[2][2] ?  "̂1" : string(t)*"'") * "> "
 end
 
 # Function to format intervals for up
@@ -20,7 +21,7 @@ end
 
 # Function to format intervals for down
 function format_down(interval)
-    return "<" * string(interval[1] - 1) * "' ," * string(interval[2] - 1) * "'> "
+    return "<" * string(interval[1] - 1) * "', " * string(interval[2] - 1) * "'> "
 end
 
 function print_intervals(header, intervals, formatter)
