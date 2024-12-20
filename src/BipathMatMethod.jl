@@ -3,33 +3,30 @@ using AbstractAlgebra
 R= AbstractAlgebra.GF(2)
 
 #This code separate intervals into four types.
-function separateintervals(pairs,k)#k is FSC[2] 
+function separateintervals(pairs, k) # k is FSC[2]
     basis = collect(keys(pairs))
-    intervals =[pairs[b] for b in basis ]
-    leftintervals = []
-    rightintervals = []
-    center = []
-    centerbasis = []
-    others = []
-    othersbasis = []
-    leftbasis = []
-    rightbasis = []
-    for i in 1:length(intervals)
-        if intervals[i] ==[1,k] # [1,"∞"]
-            push!(center,intervals[i]) 
-            push!(centerbasis, basis[i])
-        elseif intervals[i][1] == 1
-            push!(leftintervals,intervals[i])
-            push!(leftbasis, basis[i])
-        elseif intervals[i][2] == k #"∞"
-            push!(rightintervals,intervals[i])
-            push!(rightbasis, basis[i])
-        else 
-            push!(others, intervals[i])
-            push!(othersbasis, basis[i])
+    intervals = [pairs[b] for b in basis]    
+    result = Dict(
+        :left => ([], []),
+        :center => ([], []),
+        :right => ([], []),
+        :others => ([], [])
+    )
+    
+    for (i, interval) in enumerate(intervals)
+        key = if interval == [1, k] # [1,"∞"]
+            :center
+        elseif interval[1] == 1
+            :left
+        elseif interval[2] == k
+            :right
+        else
+            :others
         end
+        push!(result[key][1], interval)
+        push!(result[key][2], basis[i])
     end
-    return [leftintervals,leftbasis], [center,centerbasis], [rightintervals,rightbasis], [others,othersbasis] 
+    return result[:left], result[:center], result[:right], result[:others]
 end
 
 # the input "left_int_basis" is the result of the function separateintervals(-,-)[1].
@@ -127,6 +124,7 @@ function interval_decomposition(FSCa,FSCb)
     RspaceUp = get_basis_intervals_right(FSCa,sepa[3])
     LsapceUp = get_basis_intervals_left(FSCa,sepa[1])  
     mats= get_two_repmat(LsapceUp,RspaceUp,LspaceDown,RspaceDown)
+
     intLwithB= connect_updown(sepa[1],sepb[1],mats[1])
     intRwithB = connect_updown(sepa[3],sepb[3],mats[2])
     #return intLwithB, intRwithB, sepa[4], sepa[2], b[4], dims
@@ -138,52 +136,19 @@ function interval_decomposition(FSCa,FSCb)
        up= [sepa[4][1][a] for a in 1:length(sepa[4][1]) if length(sepa[4][2][a][1])==i+1 ]
        center=[sepa[2][1][x] for x in 1:length(sepa[2][1]) if length(sepa[2][2][x][1])==i+1 ]
        down =[ sepb[4][1][x] for x in 1:length(sepb[4][1]) if length(sepb[4][2][x][1])==i+1]
+
        i_thhomology[i] =  [intL, intR, up,center,down]
+
        if iszero(i_thhomology[i])
           println( "¬  ∃ ",i,"_th homology" )
           println("................")
        else
-       println( " ∃ ",i,"_th homology, ", "#[̂0,̂1] is ", length(center) )
-       print("intervals with ̂0: 
-       ")        #println("intervals with ̂0 : ",intL) 
-       for int in intL
-        s,t = int[2][2]-1, int[1][2]-1
-          if s !=0 &  t != 0 
-             print("<"*string(s)*","*string(t)*"> ")
-          elseif (t == 0) & (s != 0 )
-             print("<"*string(s)*"', ̂0> ")
-          elseif (t!=0) & (s == 0) 
-            print("<̂0,"*string(t)*"> ")
-          else
-            print("<̂0, ̂0>  ")
-          end
-       end
-       println(" ")
-       print("intervals with ̂1: ")        #println("intervals with ̂1 : ",intR) 
-       for int in intR
-        s,t = int[1][1]-1, int[2][1]-1
-          if (int[1][1] != int[1][2]) &  (int[2][1] != int[2][2]) 
-             print("<"*string(s)*","*string(t)*"'> ")
-          elseif (int[1][1] == int[1][2])  & (int[2][1] != int[2][2]) 
-             print("<̂1,"*string(t)*"'> ")
-          elseif (int[1][1] != int[1][2])  & (int[2][1] == int[2][2]) 
-            print("<̂"*string(s)*",̂1> ")
-          else
-            print("<̂1, ̂1> ")
-          end
-       end
-       println(" ")
-       print("intervals up: ")        #println("intervals up: ",up)
-       for int in up
-        print("<"*string(int[1]-1)*","*string(int[2]-1)*"> ")
-       end
-       println(" ")
-       print("intervals down: ")    #println("intervals down: ",down)
-       for int in down
-        print("<"*string(int[1]-1)*"',"*string(int[2]-1)*"'> ")
-       end
-       println(" ")
-       println("................")
+          println( " ∃ ",i,"_th homology, ", "#[̂0,̂1] is ", length(center) )
+          print_intervals("intervals with ̂0: ", intL, format_intL)
+          print_intervals("intervals with ̂1: ", intR, format_intR)
+          print_intervals("intervals up: ", up, format_up)
+          print_intervals("intervals down: ", down, format_down)
+          println("................")
        end       
     end
     return i_thhomology, FSCa[2] ,FSCb[2]

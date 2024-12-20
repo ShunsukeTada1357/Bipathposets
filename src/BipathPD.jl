@@ -1,4 +1,4 @@
-##This file is for the function plotintlist(FSCa,FSCb,i_th::Int) which visualizes intervals in the plane.     
+# This file is for the function plotintlist(FSCa,FSCb,i_th::Int) which visualizes intervals in the plane.     
 using Plots
 using LaTeXStrings
 using StatsBase
@@ -30,7 +30,7 @@ function intervalstoplane(intL,intR,up,down,center,n,m)
     return intlist
 end
 
-#color of points means the number of intervals in the bipath posets B_{n,m}
+#Color of points means the number of intervals in the bipath posets B_{n,m}
 function colorfunc(col, max::Int, mult::Int)
     d = div(length(col), max)
     return (d <= 1 || max == 1) ? 1 : min(1 + d * (mult - 1), length(col))
@@ -82,8 +82,8 @@ function plotintlist(FSCa,FSCb,i_th::Int)
         println("no ",i_th," homology.")
         return false
     end
-    dict_int=X[1][i_th]
-    n,m = X[2]-2, X[3]-2
+    dict_int = X[1][i_th]
+    n, m = X[2] - 2, X[3] - 2
     intL, intR, up, center, down = dict_int[1], dict_int[2], dict_int[3], dict_int[4], dict_int[5]
     intlist = intervalstoplane(intL,intR,up,down,center,n,m)
     plotpoints(intlist,n,m)
