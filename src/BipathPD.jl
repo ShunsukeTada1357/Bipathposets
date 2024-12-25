@@ -76,8 +76,7 @@ function plotpoints(points,n,m)#points=[[a,b],[c,d],[a,b],...]
 current()
 end
 #This is the desired function.
-function plotintlist(FSCa,FSCb,i_th::Int) 
-    X = interval_decomposition(FSCa,FSCb)
+function plotintlist(X,i_th::Int) #X = interval_decomposition(FSCa,FSCb)
     if (i_th in keys(X[1])) == false #check that we have points to plot. 
         println("no ",i_th," homology.")
         return false

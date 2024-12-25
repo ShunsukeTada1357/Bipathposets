@@ -29,65 +29,29 @@ function separateintervals(pairs, k) # k is FSC[2]
     return result[:left], result[:center], result[:right], result[:others]
 end
 
-# the input "left_int_basis" is the result of the function separateintervals(-,-)[1].
-function get_basis_intervals_left(FSC,left_int_basis)   
-    leftB = [vectorizationofSC(FSC,i) for i in left_int_basis[2]]
-    Lspace=matrix_space(R,length(FSC[1]),length(leftB))()#R=GF(2)
-    for i in 1:length(leftB)
-        Lspace[:,i]= leftB[i]
+function make_space(FSC_vect::Dict, int_basis)
+    r = length(FSC_vect)
+    vector = [vectorizationofSC(FSC_vect,i) for i in int_basis]
+    cols = length(int_basis)
+    space=matrix_space(R,r,cols)()#R=GF(2)
+    for i in 1:cols
+        space[:,i]= vector[i]
     end 
-    return Lspace
+    return space
 end
 
-# the input "right_int_basis" is the result of the function separateintervals(-,-)[3].
-function get_basis_intervals_right(FSC, right_int_basis)# l=length(FSC[1])   
-    rightB = [vectorizationofSC(FSC,i) for i in right_int_basis[2]]
-    Rspace=matrix_space(R,length(FSC[1]),length(rightB))()#R=GF(2)
-    for i in 1:length(rightB)
-        Rspace[:,i]= rightB[i]
-    end 
-    return Rspace
-end
-
-function get_basis_intervals_left(FSC,left_int_basis,imagebasis_left) 
-    l = length(FSC[1])
-    leftB = [vectorizationofSC(FSC,i) for i in left_int_basis[2]]
-    Lspace = matrix_space(R,l,length(leftB))()#R=GF(2)
-    for i in 1:length(leftB)
-        Lspace[:,i] = leftB[i]
-    end 
-
-    leftBB = [vectorizationofSC(FSC,i) for i in imagebasis_left]
-    LLspace = matrix_space(R,l,length(leftBB) )()#R=GF(2)
-    for i in 1:length(leftBB) 
-        LLspace[:,i] = leftBB[i]
-    end 
-    return  [Lspace LLspace]
-end
-
-function get_basis_intervals_right(FSC,right_int_basis,imagebasis,centerwithB) 
-    l = length(FSC[1])
-    rightB = [vectorizationofSC(FSC,i) for i in right_int_basis[2]]
-    cols1 = length(rightB)
-    Rspace=matrix_space(R,l,cols1)()#R=GF(2)
-    for i in 1:cols1
-        Rspace[:,i]= rightB[i]
-    end 
-
-    rrightB=[vectorizationofSC(FSC,i[1]) for i in imagebasis]
-    cols2 = length(rrightB) 
-    RRspace=matrix_space(R,l,cols2)()#R=GF(2)
-    for i in 1:cols2
-        RRspace[:,i]= rrightB[i]
-    end 
-    
-    rrrightB=[vectorizationofSC(FSC,i) for i in centerwithB[2]]
-    cols3 = length(rrrightB) 
-    aspace=matrix_space(R,l,cols3)()#R=GF(2)
-    for i in 1:cols3
-        aspace[:,i]= rrrightB[i]
-    end 
-    return [Rspace RRspace aspace]
+function get_basis_intervals(FSC_vect,int_basis, image_basis=0::Int, center_basis=0::Int)
+    S = make_space(FSC_vect, int_basis)  
+    if image_basis === 0::Int
+        return  S
+    elseif center_basis === 0::Int
+        SS =  make_space(FSC_vect, image_basis) 
+        return [S SS]
+    else
+        SS =  make_space(FSC_vect, image_basis) 
+        SSS = make_space(FSC_vect, center_basis) 
+        return [S SS SSS]
+    end
 end
 
 function get_two_repmat(LspaceUp,RspaceUp,LspaceDown,RspaceDown)
@@ -118,15 +82,17 @@ function interval_decomposition(FSCa,FSCb)
 
     sepa = separateintervals(pairsa,FSCa[2])
     sepb = separateintervals(pairsb,FSCb[2])
+    FSCa_vect = _vectorizationofFSC(FSCa)
+    FSCb_vect = _vectorizationofFSC(FSCb) 
 
-    RspaceDown = get_basis_intervals_right(FSCb,sepb[3],imb,sepb[2]) 
-    LspaceDown = get_basis_intervals_left(FSCb,sepb[1],imb_left) 
-    RspaceUp = get_basis_intervals_right(FSCa,sepa[3])
-    LsapceUp = get_basis_intervals_left(FSCa,sepa[1])  
+    RspaceDown = get_basis_intervals(FSCb_vect, sepb[3][2], imb, sepb[2][2]) 
+    LspaceDown = get_basis_intervals(FSCb_vect, sepb[1][2], imb_left) 
+    RspaceUp = get_basis_intervals(FSCa_vect, sepa[3][2])
+    LsapceUp = get_basis_intervals(FSCa_vect, sepa[1][2])  
     mats= get_two_repmat(LsapceUp,RspaceUp,LspaceDown,RspaceDown)
 
-    intLwithB= connect_updown(sepa[1],sepb[1],mats[1])
-    intRwithB = connect_updown(sepa[3],sepb[3],mats[2])
+    intLwithB= connect_updown(sepa[1], sepb[1], mats[1])
+    intRwithB = connect_updown(sepa[3], sepb[3], mats[2])
     #return intLwithB, intRwithB, sepa[4], sepa[2], b[4], dims
 
     i_thhomology = Dict()
@@ -144,10 +110,10 @@ function interval_decomposition(FSCa,FSCb)
           println("................")
        else
           println( " ∃ ",i,"_th homology, ", "#[̂0,̂1] is ", length(center) )
-          print_intervals("intervals with ̂0: ", intL, format_intL)
-          print_intervals("intervals with ̂1: ", intR, format_intR)
-          print_intervals("intervals up: ", up, format_up)
-          print_intervals("intervals down: ", down, format_down)
+          print_intervals("intervals with ̂0: ", intL, print_intL)
+          print_intervals("intervals with ̂1: ", intR, print_intR)
+          print_intervals("intervals up: ", up, print_up)
+          print_intervals("intervals down: ", down, print_down)
           println("................")
        end       
     end
