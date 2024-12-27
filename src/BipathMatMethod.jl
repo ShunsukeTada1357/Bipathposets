@@ -40,11 +40,11 @@ function make_space(FSC_vect::Dict, int_basis)
     return space
 end
 
-function get_basis_intervals(FSC_vect,int_basis, image_basis=0::Int, center_basis=0::Int)
+function get_basis_intervals(FSC_vect,int_basis, image_basis= true, center_basis= true)
     S = make_space(FSC_vect, int_basis)  
-    if image_basis === 0::Int
+    if image_basis == true
         return  S
-    elseif center_basis === 0::Int
+    elseif center_basis == true
         SS =  make_space(FSC_vect, image_basis) 
         return [S SS]
     else
