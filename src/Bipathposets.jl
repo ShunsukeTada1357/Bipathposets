@@ -7,4 +7,4 @@ include("Print_functions.jl")
 include("BipathMatMethod.jl")
 include("clique.jl")
 include("BipathPD.jl")
-end # module bipathposets
+end # module Bipathposets
