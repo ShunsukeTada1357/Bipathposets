@@ -4,12 +4,10 @@ function contractbirth(birth,FSC)# I is an interval [b,d]
 end
 
 function contractdeath(death,FSC)
-    d = death+1
-
-    if d> length(FSC[1])
+    if death == length(FSC[1])
         return FSC[2]
     else
-        return FSC[1][d][2]-1
+        return FSC[1][death+1][2]-1
     end
 end
 
