@@ -50,15 +50,27 @@ Bipathposets.plotintlist(aa,0)
 ##########################################
 #Example(6) random model
 path1, path2 = Bipathposets.get_rectangular_paths([0.4,0.4],[0.7,0.7],5)
-n =20
+n =15
 G = Complete(n) 
-faces = collect(Combinatorics.powerset(collect(G.V), 2, n))
+faces = collect(Combinatorics.powerset(collect(G.V), 2, n))##修正する
+faces[1000]
 aa=Bipathposets.clique_random(G,faces,path1,path2)
 FSCa = aa[1]
 FSCb = aa[2]
 
 aa =Bipathposets.interval_decomposition(FSCa,FSCb)
+aa[1]
 Bipathposets.plotintlist(aa,1)
+#Example(8) random model ith-homology
+path1, path2 = Bipathposets.get_rectangular_paths([0.3,0.3],[0.6,0.6],5)
+aa=Bipathposets.clique_random_ith(30,path1,path2,1)
+FSCa = aa[1]
+FSCb = aa[2]
+
+aa =Bipathposets.interval_decomposition(FSCa,FSCb)
+aa[1]
+Bipathposets.plotintlist(aa,1)
+
 #Example(7)
 FSCa =[ [ [[1],1],[[2],1],[[3],1],[[4],1],[[5],1], [[1,2],1], [[1,3],1], [[2,3],1], [[3,4],1], [[3,5],1], [[4,5],1], [[1,5],2], [[1,4],3], [[3,4,5],4],[[1,3,5],5]   ] ,5]
 FSCb =[[ [[1],1],[[2],1],[[3],1],[[4],1], [[5],1], [[1,2],1], [[1,3],1], [[2,3],1], [[3,4],1], [[3,5],1], [[4,5],1], [[1,4],2], [[1,5],3], [[1,3,5],3], [[3,4,5],4] ],  4] 
