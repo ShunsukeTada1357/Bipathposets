@@ -1,7 +1,6 @@
 #Contributed by Toshitaka Aoki
 import Combinatorics as Comb
 import SimpleGraphs as SG
-using BenchmarkTools
 
 #Get a bipath from R^2.
 function get_rectangular_paths(init,ending,partition::Int) #init, ending ∈R^2
