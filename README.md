@@ -16,7 +16,7 @@ Our main function is "Bipathposets.bipathpersistence" whose arguments are two fi
 
 ```
 julia> using Bipathposets
-julia> bipath = Bipathposets.bipathpersistence(FSCa,FSCb)
+julia> bipath = Bipathposets.interval_decomposition(FSCa,FSCb)
 (Dict{Any, Any}(0 => Vector{Any}[[[[1, 1], [1, 2]]], [], [], [[1, 5]], []]), 5, 4)
 ```
 
