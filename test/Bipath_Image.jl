@@ -37,6 +37,6 @@ imgsUp = [image_to_binary_matrix(Gray.(load(path))) for path in img_paths_up]
 imgsDown = [image_to_binary_matrix(Gray.(load(path))) for path in img_paths_down]
 
 # Compute bipath persistence diagram!
-aa = Bipath_image(imgsUp,imgsDown)
+aa = Bipathposets.bipath_image(imgsUp,imgsDown)
 Bipathposets.plotintlist(aa,0)
 Bipathposets.plotintlist(aa,1)

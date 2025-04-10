@@ -108,7 +108,7 @@ Fa = [aa[1], mat, aa[2] ]
 Fb = [aa[1], mat2, aa[2] ]
 """
 
-function Bipath_image(MatsUp,MatsDown)
+function bipath_image(MatsUp,MatsDown)
     X = SemiFImgtoFImg(MatsUp,MatsDown)[1]
     Y =SemiFImgtoFImg(MatsUp,MatsDown)[2]
     FSCa = [ImagetoFSC(X...) , length(MatsUp)]
