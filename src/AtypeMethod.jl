@@ -81,5 +81,6 @@ function baseswithintervals(FSC)
     end   
     newpairs = sort(newpairs;byvalue=true)
     imagebasisleft = [a[1] for a in imagebasis if contractinterval(a[2],FSC)[2]==0] ## The left image of the vector space.  
+    imagebasis = [a[1] for a in imagebasis]                                         ## We do not need intervals now. 
     return [newpairs,imagebasisleft, imagebasis]                                       ## It returns pairs (intervals and bases) and basis of image of boundary operation.        
 end

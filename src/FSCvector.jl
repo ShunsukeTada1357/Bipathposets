@@ -16,12 +16,10 @@ function _vectorizationofFSC(FSC)
     return dic
 end
 
-function vectorizationofSC(FSC,sumofcomplex) #sumofcomplex=[[1,2],[2,3],[1,3]]
-    FS = copy(FSC)
-    dic=_vectorizationofFSC(FS)
-    vec = [R(0) for i in 1:length(FSC[1])] 
+function vectorizationofSC(FSC_vect,sumofcomplex) #sumofcomplex=[[1,2],[2,3],[1,3]], FSC_vect= _vectorizationofFSC(FSC)
+    vec = [R(0) for i in 1:length(FSC_vect)] 
     for s in sumofcomplex
-        vec = vec +dic[s]
+        vec = vec +FSC_vect[s]
     end
     return vec
 end
