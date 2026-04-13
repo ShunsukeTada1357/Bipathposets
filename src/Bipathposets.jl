@@ -20,5 +20,5 @@ include("BipathPlaneUtils.jl")
 include("BipathPD.jl")
 
 include("BipathRecords.jl")
-include("ImageBipathAPI.jl")
+include("ImageBipathGUI.jl")
 end # module Bipathposets
