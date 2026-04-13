@@ -44,7 +44,7 @@ julia> Bipathposets.plotintlist(bipath,i)
 ```
 For example, let i be 0, we obtain the following diagram.
 
-<img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
+<img src="bipath.jpg" alt="bipath persistence diagram" width="500px" align="center">
 
 ## Interval decomposition for bipath filtrations of cubical complexes
 
@@ -111,7 +111,7 @@ julia> Bipathposets.plot_bipath_diagram(bipath, 1)
 
 and obtain the following bipath persistence diagram.
 
-<img src="bipath2.jpg" alt="bipath persistence diagram" width="200px" align="center">
+<img src="bipath2.png" alt="bipath persistence diagram" width="500px" align="center">
 
 In addition,
 
@@ -122,7 +122,7 @@ julia> Bipathposets.interactive_bipath_viewer_all(records, A_list, B_list, FSCa,
 
 opens an interactive viewer for visualizing representatives of bipath persistent homology classes (currently not necessarily optimal). By clicking a point in the bipath persistence diagram, one can see the corresponding representatives on the two image filtrations. This method for visualizing representatives was developed through discussions with Emerson Escolar.
 
-<img src="inverse1.jpg" alt="interactive bipath viewer" width="200px" align="center">
+<img src="inverse1.png" alt="interactive bipath viewer" width="500px" align="center">
 
 # Install
 
