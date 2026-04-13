@@ -110,6 +110,7 @@ julia> Bipathposets.plot_bipath_diagram(bipath, 1)
 ```
 
 and obtain the following bipath persistence diagram.
+<img src="bipath2.png" alt="bipath persistence diagram" width="500px" align="center">
 
 
 In addition,
