@@ -1,7 +1,7 @@
 # Bipathposets
- A computation for bipath persistent homology using Julia. The computational method is given in the paper "Bipath Persistence" <a href="https://arxiv.org/abs/2404.02536"> arXiv:2404.02536 </a> by Toshitaka Aoki, Emerson G. Escolar, and Shunsuke Tada.
+ A computation for bipath persistent homology using Julia. The computational method is given in the paper <a href="https://link.springer.com/article/10.1007/s13160-024-00681-3"> Bipath Persistence </a> by Toshitaka Aoki, Emerson G. Escolar, and Shunsuke Tada.
 
-# Basic use
+## Interval decomposition for bipath filtrations of simplicial complexes
 We treat a bipath filtration of simplicial complexes, which is seen as a pair of filtration sharing the same spaces at their ends. 
 For example, 
 ```
@@ -30,7 +30,7 @@ intervals up:
 intervals down:
 ```
 ```∃ 0_th homology, #[̂0,̂1] is 1``` says that there exists one connected component that does not die across the bipath filtration.
-The notation ```<1', ̂0>``` is explained in our <a href="https://arxiv.org/abs/2404.02536"> paper </a> (Definition 2.5). 
+The notation ```<1', ̂0>``` is explained in our <a href="https://link.springer.com/article/10.1007/s13160-024-00681-3"> paper </a> (Definition 2.5). 
 
 
 
@@ -46,7 +46,83 @@ For example, let i be 0, we obtain the following diagram.
 
 <img src="bipath.jpg" alt="bipath persistence diagram" width="200px" align="center">
 
+## Interval decomposition for bipath filtrations of cubical complexes
 
+The function `Bipathposets.interval_decomposition_cubical` computes the interval decomposition of bipath filtrations of cubical complexes. It returns a 3-tuple: the first component is a dictionary indexed by homological degree, and the second and third components record the lengths of the two filtrations.
+
+For the following 0-1 matrices,
+
+```julia
+julia> A1 = [0 1 0 0 0;
+             1 0 1 0 0;
+             0 1 0 0 0;
+             1 0 1 0 0;
+             0 1 0 1 0]
+
+julia> A2 = [0 1 0 0 0;
+             1 0 1 0 0;
+             0 1 0 1 0;
+             1 0 1 0 0;
+             0 1 0 1 0]
+
+julia> A3 = [0 1 0 1 1;
+             1 0 1 0 1;
+             0 1 0 1 0;
+             1 0 1 0 0;
+             0 1 0 1 0]
+
+julia> A4 = [0 1 0 1 1;
+             1 0 1 0 1;
+             0 1 1 1 0;
+             1 1 1 1 0;
+             0 1 0 1 0]
+
+julia> B1 = A1
+
+julia> B2 = [0 1 0 0 0;
+             1 0 1 0 0;
+             0 1 0 1 0;
+             1 1 1 0 0;
+             0 1 0 1 0]
+
+julia> B3 = [0 1 0 1 1;
+             1 0 1 0 1;
+             0 1 0 1 0;
+             1 1 1 0 0;
+             0 1 0 1 0]
+
+julia> B4 = A4
+
+julia> A_list = [A1, A2, A3, A4]
+julia> B_list = [B1, B2, B3, B4]
+```
+
+we run
+
+```julia
+julia> using Bipathposets
+
+julia> FSCa = Bipathposets.cubical_filtration_to_FSC(A_list)
+julia> FSCb = Bipathposets.cubical_filtration_to_FSC(B_list)
+
+julia> bipath = Bipathposets.interval_decomposition_cubical(FSCa, FSCb)
+julia> Bipathposets.plot_bipath_diagram(bipath, 1)
+```
+
+and obtain the following bipath persistence diagram.
+
+<img src="bipath2.jpg" alt="bipath persistence diagram" width="200px" align="center">
+
+In addition,
+
+```julia
+julia> records = Bipathposets.bipath_records_cubical(FSCa, FSCb)
+julia> Bipathposets.interactive_bipath_viewer_all(records, A_list, B_list, FSCa, FSCb; dim=1)
+```
+
+opens an interactive viewer for visualizing representatives of bipath persistent homology classes (currently not necessarily optimal). By clicking a point in the bipath persistence diagram, one can see the corresponding representatives on the two image filtrations. This method for visualizing representatives was developed through discussions with Emerson Escolar.
+
+<img src="inverse1.jpg" alt="interactive bipath viewer" width="200px" align="center">
 
 # Install
 
@@ -116,4 +192,4 @@ and install the package "Bipathposets" again. This procedure could solve problem
 
 ・<a href="https://shunsuketada1357.github.io/">Shunsuke Tada</a> (main developer)
 
-This project was partially supported by Grant-in-Aid for Transformative Research Areas（A）22H05105.
+This project was partially supported by Grant-in-Aid for Transformative Research Areas（A）22H05105; JST SPRING, Grant Number JPMJSP2148, and Grant-in-Aid for Research Activity Start-up.
