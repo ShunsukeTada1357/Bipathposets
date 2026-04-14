@@ -145,9 +145,9 @@ Then, get into the Pkg REPL by pressing ```]```.
 ```
 (@v1.9) pkg>
 ```
-2. Enter "add https://github.com/ShunsukeTada1357/Bipathposets.git" 
+2. Enter "add https://github.com/ShunsukeTada1357/Bipathposets.git#dev" 
 ```
-(@v1.9) pkg> add https://github.com/ShunsukeTada1357/Bipathposets.git
+(@v1.9) pkg> add https://github.com/ShunsukeTada1357/Bipathposets.git#dev
 ```
 3. Enter "status" to check the package is installed.
 ```

@@ -5,6 +5,7 @@ export interval_decomposition_cubical
 export plot_bipath_diagram
 export bipath_records_cubical
 export interactive_bipath_viewer
+export interactive_bipath_viewer_all
 
 #Varidation
 include("IsFSC.jl")
