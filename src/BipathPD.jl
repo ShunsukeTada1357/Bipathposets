@@ -3,33 +3,6 @@
 using Plots
 using LaTeXStrings
 using StatsBase
-function intervalstoplane(intL,intR,up,down,center,n,m)
-    intlist =[]
-    for I in intL
-        a = n+m+3-I[2][2] # an end point of I
-        b = (I[1][2] + I[2][2]-2) # persistence of the interval I.
-        push!(intlist,[a,(a+b)%(n+m+2)])
-    end
-    for I in intR
-        a = I[1][1]-1
-        b = (I[1][2]-I[1][1] ) + ( I[2][2] -I[2][1]) # persistence of the interval I.
-        push!(intlist, [a, a+b])
-    end
-    for I in up
-        a = I[1]-1
-        b = I[2]-I[1]
-        push!(intlist,[a, a+b])
-    end
-    for I in down
-        a = n+m+3 -I[2]
-        b = I[2]-I[1]
-        push!(intlist,[a, a+b])
-    end
-    for I in center
-        push!(intlist,[0,n+m+2])
-    end
-    return intlist
-end
 
 #Color of points means the number of intervals in the bipath posets B_{n,m}
 function colorfunc(col, max::Int, mult::Int)
@@ -53,10 +26,7 @@ function plotpoints(points,n,m)#points=[[a,b],[c,d],[a,b],...]
     uu = -1.5*ones(RR)
     xaxis = vcat(lll,L"\widehat{0}")
     yaxis = vcat(L"\widehat{0}",lll)
-    """
-     xaxis, yaxis=bipath_axis_labels(n,m)
-    uu = -1.5*ones(RR)
-    """
+
     annotate!(1:RR, uu, Plots.text.(xaxis,10,"Computer Modern"))
     annotate!(uu,0:RR-1, Plots.text.(yaxis,10,"Computer Modern"))
 
