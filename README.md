@@ -12,7 +12,7 @@ are two filtrations sharing the same spaces at their ends. As for FSCa, the simp
 <div style="text-align:center;">
     <img src="bipath_explanation.png" alt="bipath filtration" width="500px">
 </div>
-Our main function is "Bipathposets.bipathpersistence" whose arguments are two filtrations of simplicial complexes sharing the same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionary and the second, and third are integers meaning the length of each filtration.
+Our main function is "Bipathposets.interval_decomposition" whose arguments are two filtrations of simplicial complexes sharing the same spaces at their ends. Its output is a list with three elements. The first element in the list is a dictionary and the second, and third are integers meaning the length of each filtration.
 
 ```
 julia> using Bipathposets
@@ -40,7 +40,7 @@ julia> bipath[1][i]
 ```
 If we want to visualize the persistence of i-th homology group in the bipath filtration, we compute
 ```
-julia> Bipathposets.plotintlist(bipath,i)
+julia> Bipathposets.plot_bipath_diagram(bipath,i)
 ```
 For example, let i be 0, we obtain the following diagram.
 
