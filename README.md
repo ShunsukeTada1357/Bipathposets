@@ -122,7 +122,7 @@ julia> records = Bipathposets.bipath_records_cubical(FSCa, FSCb)
 julia> Bipathposets.interactive_bipath_viewer_all(records, A_list, B_list, FSCa, FSCb; dim=1)
 ```
 
-opens an interactive viewer for visualizing representatives of bipath persistent homology classes (currently not necessarily optimal). By clicking a point in the bipath persistence diagram, one can see the corresponding representatives on the two image filtrations. This method for visualizing representatives was developed through discussions with Emerson Escolar.
+opens an interactive viewer for visualizing representatives of bipath persistent homology classes (currently not necessarily optimal). By clicking a point in the bipath persistence diagram, one can see the corresponding representatives on the two image filtrations. This method for visualizing representatives was developed after a discussion with Emerson Escolar, and the idea for this UI was from his software.
 
 <img src="inverse1.png" alt="interactive bipath viewer" width="500px" align="center">
 
